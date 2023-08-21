@@ -1,23 +1,27 @@
 package juanaljaro.photo_gallery.controller
 
-import juanaljaro.photo_gallery.domain.Album
+import juanaljaro.photo_gallery.service.AlbumServiceImpl
+import juanaljaro.photo_gallery.service.PhotoServiceImpl
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ResponseBody
-import org.springframework.web.client.RestTemplate
+import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
-class AlbumController {
-    @GetMapping("/albums")
-    @ResponseBody
-    fun getAlbums(): String {
-        val restTemplate = RestTemplate()
-        val uri= "https://jsonplaceholder.typicode.com/albums/"
+class PhotoController {
 
-        val albums = restTemplate.getForObject(uri, Array<Album>::class.java)
-        println("Albums: " + albums?.size)
+    @Autowired
+    private val albumServiceImpl: AlbumServiceImpl? = null
+    @Autowired
+    private val photoServiceImpl: PhotoServiceImpl? = null
 
-        return "Albums: " + albums?.size + System.getProperty("line.separator") + albums?.joinToString(System.getProperty("line.separator")) { " Id: " + it.id + " Title: " + it.title }
+    @GetMapping("/photos/{id}")
+    fun getPhotosFromAlbum(@PathVariable id: Long, model: Model): String {
+
+        model.addAttribute("photos", photoServiceImpl?.getAllPhotosByAlbumId(id))
+        model.addAttribute("albumTitle", albumServiceImpl?.getAlbumTitle(id))
+        return "photos"
     }
 
 }

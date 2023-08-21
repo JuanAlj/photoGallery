@@ -10,9 +10,15 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.SequenceGenerator
 
-
 @Entity
-class Photo {
+class Photo() {
+
+    constructor(id: Long? = null, title: String? = null, url: String? = null, thumbnailUrl: String? = null) : this() {
+        this.id = id
+        this.title = title
+        this.url = url
+        this.thumbnailUrl = thumbnailUrl
+    }
 
     @Id
     @Column(

@@ -13,12 +13,12 @@ import org.springframework.web.client.RestTemplate
 
 @ExtendWith(MockitoExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PhotoServiceTest {
+class PhotoServiceImplTest {
 
     @MockBean
     private val restTemplate: RestTemplate? = null
     @Autowired
-    private val photoService: PhotoService? = null
+    private val photoServiceImpl: PhotoServiceImpl? = null
 
     @Test
     fun findAllTest() {
@@ -32,7 +32,7 @@ class PhotoServiceTest {
 
         given(restTemplate?.getForObject(url, Array<Photo>::class.java)).willReturn(photos)
 
-        val photosResult = photoService?.getAllPhotosByAlbumId(1)
+        val photosResult = photoServiceImpl?.getAllPhotosByAlbumId(1)
 
         assertThat(photosResult).isNotEmpty()
         assertThat(photosResult?.size).isEqualTo(2)

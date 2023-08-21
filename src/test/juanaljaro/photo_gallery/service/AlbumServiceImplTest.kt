@@ -13,12 +13,12 @@ import org.springframework.web.client.RestTemplate
 
 @ExtendWith(MockitoExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AlbumServiceTest() {
+class AlbumServiceImplTest() {
 
     @MockBean
     private val restTemplate: RestTemplate? = null
     @Autowired
-    private val albumService: AlbumService? = null
+    private val albumServiceImpl: AlbumServiceImpl? = null
 
     @Test
     fun findAllTest() {
@@ -28,7 +28,7 @@ class AlbumServiceTest() {
         val url = "https://jsonplaceholder.typicode.com/albums/"
         given(restTemplate?.getForObject(url, Array<Album>::class.java)).willReturn(albums)
 
-        val albumsResult = albumService?.getAllAlbums()
+        val albumsResult = albumServiceImpl?.getAllAlbums()
 
         assertThat(albumsResult).isNotEmpty()
         assertThat(albumsResult?.size).isEqualTo(2)
@@ -41,7 +41,7 @@ class AlbumServiceTest() {
         val url = "https://jsonplaceholder.typicode.com/albums/1"
         given(restTemplate?.getForObject(url, Album::class.java)).willReturn(album)
 
-        val albumTitleResult = albumService?.getAlbumTitle(1)
+        val albumTitleResult = albumServiceImpl?.getAlbumTitle(1)
 
         assertThat(albumTitleResult).isNotEmpty()
         assertThat(albumTitleResult).isEqualTo("quidem molestiae enim")

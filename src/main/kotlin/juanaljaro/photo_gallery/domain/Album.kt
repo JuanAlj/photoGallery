@@ -8,9 +8,13 @@ import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
 import jakarta.persistence.SequenceGenerator
 
-
 @Entity
-class Album {
+class Album() {
+
+    constructor(id: Long? = null, title: String? = null) : this() {
+        this.id = id
+        this.title = title
+    }
 
     @Id
     @Column(

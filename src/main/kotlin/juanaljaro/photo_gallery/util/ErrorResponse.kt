@@ -1,4 +1,4 @@
-package juanaljaro.photo_gallery.model
+package juanaljaro.photo_gallery.util
 
 
 data class ErrorResponse(
